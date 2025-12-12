@@ -58,6 +58,7 @@ public class StringStreamsKata {
     public List<String> paisesQueTerminanEnA() {
     	return paises.stream()
                 .filter(p -> p.endsWith("a"))
+                .sorted()
                 .toList();
     }
 
@@ -69,7 +70,12 @@ public class StringStreamsKata {
      * - El resultado debe estar ordenado (A→Z).
      */
     public List<String> paisesQueTerminanEnAOrdenados() {
-        throw new UnsupportedOperationException("TODO");
+        //throw new UnsupportedOperationException("TODO");
+    	return paises.stream()
+    			.distinct()
+    			.map(String::toLowerCase)
+    			.sorted()
+                .toList();     
     }
 
     /**
@@ -80,7 +86,14 @@ public class StringStreamsKata {
      * - ordenados alfabéticamente
      */
     public List<String> paisesMinusculasUnicosOrdenados() {
-        throw new UnsupportedOperationException("TODO");
+       // throw new UnsupportedOperationException("TODO");
+        return paises.stream()
+                .map(String::toLowerCase)
+                .distinct()
+                .sorted()
+                .toList();
+        		
+        
     }
 
     /**
@@ -98,65 +111,84 @@ public class StringStreamsKata {
      * - Mantén el orden de primera aparición tras normalizar.
      */
     public List<String> usuariosNormalizadosSinRepetir() {
-        throw new UnsupportedOperationException("TODO");
+       // throw new UnsupportedOperationException("TODO");
+        return usuarios.stream()
+                .map(String::trim)
+                .map(String::toLowerCase)
+                .distinct()
+                .toList();
     }
 
     /**
-     * NIVEL 5 (4+ pasos intermedios, SIN flatMap)
-     * Devuelve la lista de hashtags únicos a partir de la lista "tokens".
+     * LEVEL 5 (4+ intermediate steps, WITHOUT flatMap)
+     * Returns the list of unique hashtags from the "tokens" list.
      *
-     * Definición de hashtag:
-     * - Un token que empieza por '#'
+     * Definition of hashtag:
+     * - Some has hashtag some not so put for all 
      *
-     * Requisitos del resultado:
-     * - recorta espacios (trim) por si hubiera
-     * - en minúsculas
-     * - sin repetidos
-     * - ordenados alfabéticamente
+     * Requirements for the result:
+     * - trim spaces (trim) just in case
+     * - lowercase
+     * - no duplicates
+     * - sorted alphabetically
      *
-     * Pista:
-     * - Aquí NO hace falta split ni flatMap: ya trabajas con palabras sueltas.
+     * Hint:
+     * - Here you DO NOT need split or flatMap: you already work with individual words.
      */
     public List<String> hashtagsUnicosOrdenados() {
-        throw new UnsupportedOperationException("TODO");
+        //throw new UnsupportedOperationException("TODO");
+        return tokens.stream()
+                .map(String::trim)
+                .filter(t-> t.startsWith("#"))
+                .map(String::toLowerCase)
+                .distinct()
+                .sorted()
+                .toList();
     }
 
     /**
-     * NIVEL 6 (paso a IntStream)
-     * Devuelve la suma total de letras de los países que terminan en "a".
+     * LEVEL 6 (conversion to IntStream)
+     * Returns the total sum of letters of the countries that end with "a".
      *
-     * Requisitos:
-     * - Antes de contar letras, convierte el país a minúsculas.
-     * - Cuenta letras con length().
-     * - Convierte a IntStream con mapToInt(...) y termina con sum().
+     * Requirements:
+     * - Before counting letters, convert the country to lowercase.
+     * - Count letters with length().
+     * - Convert to IntStream with mapToInt(...) and finish with sum().
      */
     public int sumaLetrasPaisesEnA() {
         throw new UnsupportedOperationException("TODO");
+        return paises.stream()
+        		.filter(p-> p.endsWith("a"))
+        		.map(String::toLowerCase)
+        		.mapToInt(String::length)
+        		
+        		.sum();
+        		
     }
 
     /**
-     * NIVEL 7 (IntStream + average)
-     * Devuelve la media (double) de la longitud de los hashtags únicos.
+     * LEVEL 7 (IntStream + average)
+     * Returns the average (double) length of the unique hashtags.
      *
-     * Requisitos:
-     * - Usa hashtags únicos (mismo criterio que en hashtagsUnicosOrdenados()).
-     * - Convierte a IntStream con mapToInt(String::length).
-     * - Usa average().
-     * - Si no hay hashtags, devuelve 0.0.
+     * Requirements:
+     * - Use unique hashtags (same criteria as in hashtagsUnicosOrdenados()).
+     * - Convert to IntStream with mapToInt(String::length).
+     * - Use average().
+     * - If there are no hashtags, return 0.0.
      */
     public double mediaLongitudHashtagsUnicos() {
-        throw new UnsupportedOperationException("TODO");
+       // throw new UnsupportedOperationException("TODO");
     }
 
     /**
-     * NIVEL 8 (IntStream + max)
-     * Devuelve la longitud del hashtag más largo (entre los hashtags únicos).
+     * LEVEL 8 (IntStream + max)
+     * Returns the length of the longest hashtag (among the unique hashtags).
      *
-     * Requisitos:
-     * - Usa hashtags únicos (mismo criterio que antes).
-     * - Convierte a IntStream con mapToInt(String::length).
-     * - Usa max().
-     * - Si no hay hashtags, devuelve 0.
+     * Requirements:
+     * - Use unique hashtags (same criteria as before).
+     * - Convert to IntStream with mapToInt(String::length).
+     * - Use max().
+     * - If there are no hashtags, return 0.
      */
     public int longitudMaximaHashtag() {
         throw new UnsupportedOperationException("TODO");
