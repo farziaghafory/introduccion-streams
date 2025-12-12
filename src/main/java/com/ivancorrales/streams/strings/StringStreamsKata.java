@@ -156,12 +156,10 @@ public class StringStreamsKata {
      * - Convert to IntStream with mapToInt(...) and finish with sum().
      */
     public int sumaLetrasPaisesEnA() {
-        throw new UnsupportedOperationException("TODO");
         return paises.stream()
         		.filter(p-> p.endsWith("a"))
         		.map(String::toLowerCase)
         		.mapToInt(String::length)
-        		
         		.sum();
         		
     }
@@ -177,7 +175,12 @@ public class StringStreamsKata {
      * - If there are no hashtags, return 0.0.
      */
     public double mediaLongitudHashtagsUnicos() {
-       // throw new UnsupportedOperationException("TODO");
+      return hashtagsUnicosOrdenados() .stream()
+    		  .mapToInt(String::length)
+    		  .average().orElse(0.0);
+    		  
+    		  
+    		  
     }
 
     /**
