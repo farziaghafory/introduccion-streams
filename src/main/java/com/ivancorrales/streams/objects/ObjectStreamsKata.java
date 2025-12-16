@@ -50,46 +50,61 @@ public class ObjectStreamsKata {
                 .filter(s -> s.getRating() >= 4.5)
                 .count();
     }
-
     /**
-     * NIVEL 2 (2 pasos intermedios)
-     * Devuelve los títulos de las canciones de un artista dado.
+     * LEVEL 2 (2 intermediate steps)
+     * Returns the titles of the songs by a given artist.
      *
-     * Requisitos:
-     * - Respeta el orden original de la playlist.
+     * Requirements:
+     * - Preserve the original order of the playlist.
      *
-     * (Piensa: seleccionar por artista → transformar a títulos → lista)
+     * (Think: select by artist → transform to titles → list)
      */
     public List<String> titulosDeArtista(String artista) {
-        throw new UnsupportedOperationException("TODO");
-    }
+        //throw new UnsupportedOperationException("TODO");
+    	return playlist.stream()
+
+    			.filter(p -> p.getArtist().equalsIgnoreCase(artista))
+    			.map(Song::getTitle)
+    			.toList();    }
 
     /**
-     * NIVEL 3 (4 pasos intermedios)
-     * Devuelve títulos con rating >= 4.5:
-     * - sin repetidos (si una canción aparece duplicada, debe salir una vez)
-     * - ordenados alfabéticamente
+     * LEVEL 3 (4 intermediate steps)
+     * Returns titles with rating >= 4.5:
+     * - without duplicates (if a song appears more than once, it should appear only once)
+     * - sorted alphabetically
      *
-     * (Piensa: seleccionar → distinct → map(título) → sorted → lista)
+     * (Think: select → distinct → map(title) → sorted → list)
      */
     public List<String> titulosRecomendadosUnicosOrdenados() {
-        throw new UnsupportedOperationException("TODO");
-    }
+       // throw new UnsupportedOperationException("TODO");
+    	return playlist.stream()
+         .filter(p -> p.getRating() >= 4.5)
+         .distinct()
+         .map(Song::getTitle)
+          .sorted()
+          .toList();
+    	}
 
     /**
-     * NIVEL 4 (ordenación por varios criterios + TOP)
-     * Devuelve el TOP 2 de títulos, ordenando canciones así:
-     * 1) rating descendente
-     * 2) si empatan, duración (seconds) descendente
+     * LEVEL 4 (sorting by multiple criteria + TOP)
+     * Returns the TOP 2 titles, sorting songs as follows:
+     * 1) rating descending
+     * 2) if tied, duration (seconds) descending
      *
-     * Requisitos:
-     * - Sin repetidos (usa distinct() antes del TOP).
-     * - Devuelve SOLO los títulos (List<String>).
+     * Requirements:
+     * - No duplicates (use distinct() before the TOP).
+     * - Return ONLY the titles (List<String>).
      *
-     * (Piensa: distinct → sorted(criterios) → limit(2) → map(título) → lista)
+     * (Think: distinct → sorted(criteria) → limit(2) → map(title) → list)
      */
     public List<String> top2PorRatingLuegoDuracion() {
-        throw new UnsupportedOperationException("TODO");
+       // throw new UnsupportedOperationException("TODO");
+    return playlist.stream()
+.distinct()
+.sorted(/*riteria*/)//Do not know what to do
+.limit(2)
+.map(Song::getTitle)
+.toList();
     }
 
     /**
@@ -102,7 +117,10 @@ public class ObjectStreamsKata {
      * (Piensa: mapToInt(seconds) → sum)
      */
     public int duracionTotal() {
-        throw new UnsupportedOperationException("TODO");
+       // throw new UnsupportedOperationException("TODO");
+    return playlist.stream()
+    		.mapToInt(Song::getSeconds)
+    		.sum();
     }
 
     /**
@@ -116,7 +134,11 @@ public class ObjectStreamsKata {
      * (Piensa: mapToDouble(rating) → average → orElse(0.0))
      */
     public double mediaRatingPlaylist() {
-        throw new UnsupportedOperationException("TODO");
+       // throw new UnsupportedOperationException("TODO");
+return playlist.stream()
+		.mapToDouble(Song::getRating)
+		.average()
+		.orElse(0.0);
     }
 
     /**
