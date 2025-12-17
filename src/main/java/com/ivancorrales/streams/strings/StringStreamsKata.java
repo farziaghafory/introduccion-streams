@@ -194,7 +194,11 @@ public class StringStreamsKata {
      * - If there are no hashtags, return 0.
      */
     public int longitudMaximaHashtag() {
-        throw new UnsupportedOperationException("TODO");
+       // throw new UnsupportedOperationException("TODO");
+        return hashtagsUnicosOrdenados().stream()
+                .mapToInt(String::length)
+                .max()
+                .orElse(0);
     }
     
     /**
@@ -214,8 +218,16 @@ public class StringStreamsKata {
      * - Necesitas flatMap para convertirlo en Stream<String>
      */
     public List<String> comentariosUnicosLimpiosOrdenados() {
-        throw new UnsupportedOperationException("TODO");
-    }
+       // throw new UnsupportedOperationException("TODO");
+        return comentariosPorPost.stream()
+                .flatMap(List::stream)
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .map(String::toLowerCase)
+                .toList()
+                .sort()
+                .distinct();
+                }
 
     /**
      * NIVEL 10 (flatMap + split sencillo)

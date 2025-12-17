@@ -1,6 +1,8 @@
 package com.ivancorrales.streams.objects;
 
+import java.util.Comparator;
 import java.util.List;
+import java.lang.Comparable; // We use this to compare objects
 
 /**
  * KATA: Streams con OBJETOS (playlist tipo Spotify)
@@ -99,9 +101,10 @@ public class ObjectStreamsKata {
      */
     public List<String> top2PorRatingLuegoDuracion() {
        // throw new UnsupportedOperationException("TODO");
-    return playlist.stream()
+    
+	return playlist.stream()
 .distinct()
-.sorted(/*riteria*/)//Do not know what to do
+.sorted(Comparator.comparing(Song::getRating, Comparator.reverseOrder()))
 .limit(2)
 .map(Song::getTitle)
 .toList();
